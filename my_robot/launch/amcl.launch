@@ -1,0 +1,55 @@
+<launch>
+
+	<!-- map_server  -->
+	<arg name="map_file" default="$(find my_robot)/maps/maps.yaml"/>
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+
+	<!-- amcl  -->
+    <node name="amcl" pkg="amcl" type="amcl" output="screen">
+	<remap to="scan" from="my_robot/laser/scan"/>  
+	<param name="odom_frame_id" value="odom"/>
+	<param name="odom_model_type" value="diff-corrected"/>
+	<param name="base_frame_id" value="robot_footprint"/>
+	<param name="global_frame_id" value="map"/>
+	
+	<!-- Define initial pose -->
+	<param name="initial_pose_x" value="5"/>
+	<param name="initial_pose_y" value="5"/>
+	<param name="initial_pose_a" value="0"/>   <!-- this rotation is important for Rviz to match Gazebo  -->
+
+	<!-- lowering distance and rotation angle between consecutive filter updates produces very quick convergence  -->
+	<param name="min_particles" value="25"/>
+        <param name="max_particles" value="5000"/>
+        <param name="update_min_a" value="0.05"/>
+        <param name="update_min_d" value="0.0314"/>
+    	<param name="laser_min_range" value="0.1"/>
+    	<param name="laser_max_range" value="10"/>
+    	<param name="laser_max_beams" value="30"/>
+    	<param name="laser_z_hit" value="0.95"/>
+    	<param name="laser_z_rand" value="0.05"/>
+    	<param name="odom_alpha1" value="0.02"/>
+    	<param name="odom_alpha2" value="0.02"/>
+    	<param name="odom_alpha3" value="0.02"/>
+    	<param name="odom_alpha4" value="0.02"/>
+    	<param name="odom_alpha5" value="0.02"/>
+
+	</node>
+        
+	<!-- move_base  -->
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+	<remap from="scan" to="my_robot/laser/scan"/>
+	<param name="base_global_planner" value="navfn/NavfnROS" />
+  	<param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+	
+	<rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+	<rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+	<rosparam file="$(find my_robot)/config/local_costmap_params.yaml" command="load" />
+	<rosparam file="$(find my_robot)/config/global_costmap_params.yaml" command="load" />
+	<rosparam file="$(find my_robot)/config/base_local_planner_params.yaml" command="load" />
+  	</node>
+
+ 	<!-- change filepath of localization.rviz to match your absolute path  -->
+	<!-- <node type="rviz" name="rviz" pkg="rviz" args="-d /home/workspace/catkin_ws/src/localization.rviz" /> -->
+	
+</launch>
