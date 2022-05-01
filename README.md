@@ -5,7 +5,7 @@ The goal of this application is to develop an autonomous mapping solution for a 
 
 Code was tested on Ubuntu 20.04 running ROS Noetic.
 
-## Screenshots
+## Videos
 
 ## To Install ROS Package
 
