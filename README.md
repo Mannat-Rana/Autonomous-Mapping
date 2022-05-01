@@ -6,7 +6,7 @@ The goal of this application is to develop an autonomous mapping solution for a 
 Code was tested on Ubuntu 20.04 running ROS Noetic.
 
 ## Videos
-[![Project Videos]()](https://www.youtube.com/watch?v=nlX44xQYZIc)
+[Full Demonstration](https://www.youtube.com/watch?v=nlX44xQYZIc)
 
 ## To Install ROS Package
 
