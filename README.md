@@ -5,6 +5,9 @@ The goal of this application is to develop an autonomous mapping solution for a 
 
 Code was tested on Ubuntu 20.04 running ROS Noetic.
 
+## GIF Demonstration
+![Autonomous_Mapping_ProjectVideo (3)](https://user-images.githubusercontent.com/82643627/166133285-f2affa1c-a331-485d-9e4f-b7c3f657e2fb.gif)
+
 ## Videos
 [Full Demonstration](https://www.youtube.com/watch?v=nlX44xQYZIc)
 
